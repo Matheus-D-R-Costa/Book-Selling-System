@@ -15,6 +15,17 @@ public class DatabaseRepository {
     private  List<Order> orders;
     private List<Coupon> coupons;
 
+    public DatabaseRepository() {
+        this.client = new Client();
+        this.products = new ArrayList<>();
+        this.orders = new ArrayList<>();
+
+        this.coupons = new ArrayList<>();
+        coupons.add(new Coupon("COUPON2", 2));
+        coupons.add(new Coupon("COUPON5", 5));
+        coupons.add(new Coupon("COUPON10", 10));
+    }
+
     public Client getClient() {
         return client;
     }
@@ -29,17 +40,6 @@ public class DatabaseRepository {
 
     public Coupon[] getCoupons() {
         return coupons.toArray(new Coupon[coupons.size()]);
-    }
-
-    public DatabaseRepository() {
-        this.client = new Client();
-        this.products = new ArrayList<>();
-        this.orders = new ArrayList<>();
-
-        this.coupons = new ArrayList<>();
-        coupons.add(new Coupon("COUPON2", 2));
-        coupons.add(new Coupon("COUPON5", 5));
-        coupons.add(new Coupon("COUPON10", 10));
     }
 
     public void addProduct(Product product) {

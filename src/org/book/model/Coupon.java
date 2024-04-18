@@ -5,6 +5,10 @@ public class Coupon {
     private final String id;
     private final double discount;
 
+    public Coupon(String id, double discount) {
+        this.id = id;
+        this.discount = discount;
+    }
 
     public String getId() {
         return id;
@@ -14,8 +18,4 @@ public class Coupon {
         return discount;
     }
 
-    public Coupon(String id, double discount) {
-        this.id = id;
-        this.discount = discount;
-    }
 }
