@@ -5,6 +5,7 @@ import org.book.model.Order;
 import org.book.model.Product;
 import org.book.repository.DatabaseRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderService {
@@ -34,7 +35,17 @@ public class OrderService {
     }
 
     public void save(Order newOrder, Coupon coupon) {
-        //TODO método save
+
+        String id = "04d$eR";
+        LocalDate today = LocalDate.now();
+        id = String.format(id, today.getYear(), today.getMonthValue(), database.getOrders().length);
+
+        newOrder.setId(id);
+        newOrder.setClient(database.getClient());
+        newOrder.setTotal(calculateTotal(newOrder.getProducts(), coupon));
+        database.addOrder(newOrder);
+        System.out.println("Pedido cadastrado com sucesso.");
+
     }
 
     public void delete(String id) {
@@ -58,5 +69,15 @@ public class OrderService {
         }
     }
 
-    //TODO método de listar todos os pedidos
+    public void showAll() {
+
+        if(database.getOrders().length == 0) {
+            System.out.println("Não há pedidos cadastrados.");
+        } else {
+
+            for(Order order : database.getOrders()) {
+                System.out.println(order.toString());
+            }
+        }
+    }
 }
