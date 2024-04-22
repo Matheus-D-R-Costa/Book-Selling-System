@@ -1,5 +1,6 @@
 package org.book.service;
 
+import org.book.model.Order;
 import org.book.model.Product;
 import org.book.repository.DatabaseRepository;
 
@@ -35,21 +36,14 @@ public class ProductService {
 
     public void delete(String id) {
 
-        int productDeletion = -1;
-        for (int i = 0; i < database.getProducts().length; i++) {
+        Optional<Product> productToRemove = consult(id);
 
-            Product product = database.getProducts()[i];
-            if (product.getId().equals(id)) {
-                productDeletion = i;
-                break;
-            }
-        }
-
-        if (productDeletion != -1) {
-            database.removeProduct(productDeletion);
-            System.out.println("Produto excluido com sucesso.");
+        if (productToRemove.isPresent()) {
+            Product product = productToRemove.get();
+            database.removeProduct(product);
+            System.out.println("Pedido removido com sucesso.");;
         } else {
-            System.out.println("Produto inexistente.");
+            System.out.println("Pedido inexistente.");
         }
     }
 
@@ -58,6 +52,7 @@ public class ProductService {
         for (Product product : database.getProducts()) {
 
             if (product.getId().equalsIgnoreCase(id)) {
+                System.out.println(product);
                 return Optional.of(product);
             }
         }

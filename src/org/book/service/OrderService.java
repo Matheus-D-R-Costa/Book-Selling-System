@@ -7,6 +7,7 @@ import org.book.repository.DatabaseRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderService {
 
@@ -36,7 +37,7 @@ public class OrderService {
 
     public void save(Order newOrder, Coupon coupon) {
 
-        String id = "04d$eR";
+        String id = "OR%4d%2d%04d";
         LocalDate today = LocalDate.now();
         id = String.format(id, today.getYear(), today.getMonthValue(), database.getOrders().length);
 
@@ -49,24 +50,30 @@ public class OrderService {
     }
 
     public void delete(String id) {
-        int deleteOrder = -1;
 
-        for (int i = 0; i < database.getOrders().length; i++) {
+        Optional<Order> orderToRemove = consult(id);
 
-            Order order = database.getOrders()[i];
-
-            if (order.getId().equals(id)) {
-                deleteOrder = i;
-                break;
-            }
-        }
-
-        if (deleteOrder != -1) {
-            database.removerOrder(deleteOrder);
-            System.out.println("Pedido excluído com sucesso.");
+        if (orderToRemove.isPresent()) {
+            Order order = orderToRemove.get();
+            database.removerOrder(order);
+            System.out.println("Pedido removido com sucesso.");;
         } else {
             System.out.println("Pedido inexistente.");
         }
+    }
+
+    public Optional<Order> consult(String id) {
+
+        for(Order order : database.getOrders()) {
+
+            if(order.getId().equalsIgnoreCase(id)) {
+                System.out.println(order);
+                return Optional.of(order);
+            }
+        }
+
+        return Optional.empty();
+
     }
 
     public void showAll() {

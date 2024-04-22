@@ -30,7 +30,5 @@ public abstract class Product {
         this.quantity = quantity;
     }
 
-    public abstract double calculateShipping() {
-
-    }
+    public abstract double calculateShipping();
 }

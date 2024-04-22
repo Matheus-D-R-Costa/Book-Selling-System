@@ -22,7 +22,21 @@ public class ClientService {
         }
     }
 
-    //TODO Fazer a inclusão de cliente
+    public void registerClient(Client client) {
+        database.addClient(client);
+        System.out.println("Cliente cadastrado com sucesso!");
+    }
 
-    //TODO Fazer a exclusão de cliente
+    public void deleteClient(String cpf) {
+
+        Optional<Client> clientToRemove = consult(cpf);
+
+        if (clientToRemove.isPresent()) {
+            Client client = clientToRemove.get();
+            database.removeClient(client);
+            System.out.println("Cliente removido com sucesso!");
+        } else {
+            System.out.println("Cliente inexistente");
+        }
+    }
 }

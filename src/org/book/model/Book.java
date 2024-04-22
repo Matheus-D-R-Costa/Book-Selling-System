@@ -25,7 +25,18 @@ public class Book extends Product{
         this.gender = gender;
     }
 
+    @Override
     public double calculateShipping() {
         return (getPrice() * getQuantity()) * (1 + gender.getFactor());
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "name='" + name + '\'' +
+                ", gender=" + gender +
+                ", id=" + getId() +
+                ", price=" + getPrice() +
+                '}';
     }
 }

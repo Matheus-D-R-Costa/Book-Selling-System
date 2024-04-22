@@ -10,13 +10,19 @@ import java.util.List;
 
 public class DatabaseRepository {
 
+
     private Client client;
+    private List<Client> clients;
     private List<Product> products;
     private  List<Order> orders;
     private List<Coupon> coupons;
 
     public DatabaseRepository() {
         this.client = new Client();
+
+        this.clients = new ArrayList<>();
+        clients.add(client);
+
         this.products = new ArrayList<>();
         this.orders = new ArrayList<>();
 
@@ -28,6 +34,10 @@ public class DatabaseRepository {
 
     public Client getClient() {
         return client;
+    }
+
+    public Client[] getClients() {
+        return clients.toArray(new Client[clients.size()]);
     }
 
     public Product[] getProducts() {
@@ -46,15 +56,23 @@ public class DatabaseRepository {
         products.add(product);
     }
 
-    public void removeProduct(int position) {
-        products.remove(position);
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 
     public void addOrder(Order order) {
         orders.add(order);
     }
 
-    public void removerOrder(int position) {
-        orders.remove(position);
+    public void removerOrder(Order order) {
+        orders.remove(order);
+    }
+
+    public void addClient(Client client) {
+        clients.add(client);
+    }
+
+    public void removeClient(Client client) {
+        clients.remove(client);
     }
 }
