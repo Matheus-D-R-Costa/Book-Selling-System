@@ -5,6 +5,11 @@ public class Client {
     private String name;
     private String cpf;
 
+    public Client() {
+        this.name = "Kylian";
+        this.cpf = "123456789";
+    }
+
     public String getName() {
         return name;
     }

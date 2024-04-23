@@ -22,6 +22,20 @@ public class ClientService {
         }
     }
 
+    public Client loginClient(String cpf) {
+
+        Optional<Client>  result = consult(cpf);
+
+        if (result.isPresent()) {
+            Client client = result.get();
+            System.out.println(String.format("Olá %s! Você está logado.", client.getName()));
+            return client;
+        } else {
+            System.out.println("Usuário não cadastrado.");
+            return null;
+        }
+    }
+
     public void registerClient(Client client) {
         database.addClient(client);
         System.out.println("Cliente cadastrado com sucesso!");

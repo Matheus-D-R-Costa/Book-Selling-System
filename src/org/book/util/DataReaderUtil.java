@@ -1,11 +1,10 @@
 package org.book.util;
 
-import org.book.model.Book;
-import org.book.model.Coupon;
-import org.book.model.Order;
-import org.book.model.Product;
+import org.book.model.*;
 import org.book.model.enums.Gender;
+import org.book.model.enums.Material;
 import org.book.repository.DatabaseRepository;
+import org.book.service.ClientService;
 import org.book.service.ProductService;
 
 import java.util.Optional;
@@ -19,25 +18,56 @@ public final class DataReaderUtil {
         scanner = new Scanner(System.in);
     }
 
-    public static String readData() {
-        String text = scanner.nextLine();
-        return text;
-    }
-
     public static Book readBook() {
         System.out.println("Cadastrando livro...");
-        Book book = new Book();
+        Book book = readBookName();
 
-        System.out.println("Digite o nome");
-        String name = readData();
-        book.setName(name);
-
-        System.out.println("Digite o gênero: DRAMA, SUSPENSE, ROMANCE");
+        System.out.println("Digite o gênero: drama, suspense, romance");
         String gender = readData();
         book.setGender(Gender.valueOf(gender.toUpperCase()));
 
+        System.out.println("Digite o preço (padrão 0.0)");
+        String price = readData();
+        book.setPrice(Double.parseDouble(price));
+
         return book;
     }
+
+    private static Book readBookName() {
+        Book book = new Book();
+
+        System.out.println("Digite o nome do livro");
+        String name = readData();
+        book.setName(name);
+
+        return book;
+    }
+
+    public static Notebook readNotebook() {
+        System.out.println("Cadastrando caderno...");
+        Notebook notebook = readNotebookType();
+
+        System.out.println("Digite o preço (padrão 0.0)");
+        String price = readData();
+        notebook.setPrice(Double.parseDouble(price));
+
+        return notebook;
+    }
+
+    private static Notebook readNotebookType() {
+        Notebook notebook = new Notebook();
+
+        System.out.println("Digite o tipo do caderno");
+        System.out.println("M2 - 2 matérias");
+        System.out.println("M5 - 5 matérias");
+        System.out.println("M10 - 10 matérias");
+        String type = readData();
+        notebook.setType(Material.valueOf(type.toUpperCase()));
+
+        return notebook;
+    }
+
+
 
     public static Order readOrder(DatabaseRepository database) {
         ProductService productService = new ProductService(database);
@@ -89,4 +119,24 @@ public final class DataReaderUtil {
 
         return Optional.empty();
     }
+
+    public static Client readClient(String cpf) {
+
+        System.out.println("Cadastrando cliente...");
+        Client client = new Client();
+
+        System.out.println("Digite o nome");
+        String name = readData();
+        client.setName(name);
+
+        client.setCpf(cpf);
+
+        return client;
+    }
+
+    public static String readData() {
+        String text = scanner.nextLine();
+        return text;
+    }
+
 }

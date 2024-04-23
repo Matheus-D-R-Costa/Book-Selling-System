@@ -1,9 +1,6 @@
 package org.book.console;
 
-import org.book.model.Book;
-import org.book.model.Client;
-import org.book.model.Coupon;
-import org.book.model.Order;
+import org.book.model.*;
 import org.book.repository.DatabaseRepository;
 import org.book.service.ClientService;
 import org.book.service.OrderService;
@@ -30,15 +27,22 @@ public class Store {
 
         while (true) {
 
-            if (loggedClient == null) {
+            while (loggedClient == null) {
 
-                System.out.println("Digite seu CPF");
+                System.out.println("Digite um cpf para logar.");
 
                 String cpf = "";
                 cpf = DataReaderUtil.readData();
 
-                identifyUser(cpf);
+                loggedClient = clientService.loginClient(cpf);
 
+                if (loggedClient == null) {
+                    System.out.println("Deseja cadastrar um usuário?");
+                    String response = DataReaderUtil.readData();
+                    if (response.equalsIgnoreCase("s")) {
+                        clientService.registerClient(DataReaderUtil.readClient(cpf));
+                    }
+                }
             }
 
             System.out.println("Selecione uma opção:");
@@ -68,10 +72,13 @@ public class Store {
                     String idBook = DataReaderUtil.readData();
                     productService.delete(idBook);
                 case "3":
-                    //TODO Cadastrar Caderno
+                    Notebook noteBook = DataReaderUtil.readNotebook();
+                    productService.save(noteBook);
                     break;
                 case "4":
-                    //TODO Excluir Caderno
+                    System.out.println("Digite o código do Caderno");
+                    String idNotebook = DataReaderUtil.readData();
+                    productService.delete(idNotebook);
                     break;
                 case "5":
                     Order order = DataReaderUtil.readOrder(database);
@@ -106,21 +113,6 @@ public class Store {
                     System.out.println("Opção inválida");
                     break;
             }
-        }
-    }
-
-    private static void identifyUser(String cpf) {
-
-        Optional<Client> result = clientService.consult(cpf);
-
-        if (result.isPresent()) {
-
-            Client client = result.get();
-            System.out.println(String.format("Olá %s! Você está logado com sucesso!", client.getName()));
-            loggedClient = client;
-        } else {
-            System.out.println("Cliente não encontrado!");
-            System.exit(0);
         }
     }
 }

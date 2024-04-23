@@ -2,7 +2,7 @@ package org.book.model;
 
 import org.book.model.enums.Material;
 
-public class NoteBook extends Product {
+public class Notebook extends Product {
 
     private Material type;
 

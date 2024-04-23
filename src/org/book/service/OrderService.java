@@ -21,7 +21,7 @@ public class OrderService {
         double total = 0.0;
 
         for (Product product : products) {
-            total += product.calculateShipping(); //TODO fazer método calculateShipping
+            total += product.calculateShipping();
         }
 
         if (coupon != null) {
