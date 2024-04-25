@@ -16,22 +16,31 @@ public class ProductService {
 
     public void save(Product newProduct) {
 
-        String id = "PR%04d";
-        id = String.format(id, database.getProducts().length);
+        Optional<Product> productToSave = consultProduct(newProduct);
 
-        boolean repeatProduct = false;
+        if (productToSave.isEmpty()) {
+            String id = "PR%04d";
+            id = String.format(id, database.getProducts().length);
+            newProduct.setId(id);
+            database.addProduct(newProduct);
+            System.out.println("Produto cadastrado com sucesso!");
+        } else {
+            System.out.println("Produto já cadastrado.");
+        }
+    }
+
+    public Optional<Product> consultProduct(Product productToConsult) {
+
         for (Product product : database.getProducts()) {
-            if (product.getId() == newProduct.getId()) {
-                repeatProduct = true;
-                System.out.println("Produto já cadastrado.");
-                break;
+
+            if (product.equals(productToConsult)) {
+                System.out.println(product);
+                return Optional.of(productToConsult);
             }
         }
 
-        if (!repeatProduct) {
-            this.database.addProduct(newProduct);
-            System.out.println("Produto cadastrado com sucesso.");
-        }
+        return Optional.empty();
+
     }
 
     public void delete(String id) {

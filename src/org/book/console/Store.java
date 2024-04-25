@@ -48,13 +48,10 @@ public class Store {
             System.out.println("Selecione uma opção:");
             System.out.println("1 - Cadastrar Livro");
             System.out.println("2 - Excluir Livro");
-            //TODO Desafio: Consultar Livro(nome)
             System.out.println("3 - Cadastrar Caderno");
             System.out.println("4 - Excluir Caderno");
-            //TODO Desafio: Consultar Caderno(matéria)
             System.out.println("5 - Fazer pedido");
             System.out.println("6 - Excluir pedido");
-            //TODO Desafio: Consultar Pedido(código)
             System.out.println("7 - Listar produtos");
             System.out.println("8 - Listar pedidos");
             System.out.println("9 - Deslogar");
@@ -92,8 +89,8 @@ public class Store {
                     break;
                 case "6":
                     System.out.println("Digite o código do pedido");
-                    String idPedido = DataReaderUtil.readData();
-                    orderService.delete(idPedido);
+                    String idOrder = DataReaderUtil.readData();
+                    orderService.delete(idOrder);
                     break;
                 case "7":
                     productService.showAll();

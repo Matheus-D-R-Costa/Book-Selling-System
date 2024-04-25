@@ -26,4 +26,9 @@ public class Client {
         this.cpf = cpf;
     }
 
+    @Override
+    public String toString() {
+        return "Client {name=" + name + ", cpf=" + cpf + "}";
+    }
+
 }
