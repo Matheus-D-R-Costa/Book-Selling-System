@@ -7,9 +7,7 @@ Um projeto feito em java puro para simular a interação com uma base de dados p
 * java
 
 ## Pacotes
-
-![pacotes](https://raw.githubusercontent.com/Matheus-D-R-Costa/N3-book-selling-system/main/Gravaodetelade2024-07-2816-27-45-ezgif.com-video-to-gif-converter.gif)
+![pacotes](https://raw.githubusercontent.com/Matheus-D-R-Costa/Book-Selling-System/main/pacotes.gif)
 
 ## UML
-
 ![UML](https://raw.githubusercontent.com/Matheus-D-R-Costa/N3-book-selling-system/main/Captura%20de%20tela%20de%202024-07-28%2016-29-25.png)
